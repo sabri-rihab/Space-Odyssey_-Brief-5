@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpaceVoyager — Explore Beyond Earth</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -155,7 +156,7 @@
                 <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
                 <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
-                <a href="login.html" class="nav-link hover:text-neon-blue transition-colors">Login</a>
+                <a href="login.html" id="loginState" class="nav-link hover:text-neon-blue transition-colors">Login</a>
             </div>
             
             <!-- Mobile menu button -->
@@ -180,6 +181,7 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 relative z-10">
+        <p class="welcome">Welcome</p>
         <!-- Hero Section -->
         <section class="py-16 md:py-24 text-center">
             <h1 class="font-orbitron text-4xl md:text-6xl font-bold mb-6 text-glow">Explore Beyond Earth</h1>
@@ -407,5 +409,6 @@
             createStars();
         });
     </script>
+    <script src="/login.js"></script>
 </body>
 </html>
