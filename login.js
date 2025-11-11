@@ -75,8 +75,7 @@ async function CheckLogIn() {
                 );
 
                 if (!user) {
-                    document.querySelector('.errorLogin').innerHTML =
-                        "Invalid email or password. Please try again.";
+                    document.querySelector('.errorLogin').innerHTML = "Invalid email or password. Please try again.";
                     passwordInput.value = "";
                 } else {
                     user.login = "true";

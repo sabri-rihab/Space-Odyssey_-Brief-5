@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="booking.js"></script>
+    <title>Space-Voyger Booking</title>
+</head>
+<body>
+<script src="booking.js"></script>
+
+
+
+
+<!-- <div class="Booking_container">
+    <div class="booking_text py-16 md:py-24 text-center">
+        <h1 class="font-orbitron text-4xl md:text-6xl font-bold mb-6 text-glow">Book Your Space Adventure</h1>
+        <p class="text-xl md:text-2xl max-w-2xl mx-auto mb-10 text-gray-300">Choose your destination and prepare for an unforgettable journey!</p>
+    </div>
+    <form>
+        <!-- <p class="text-glow">Journey Details</p> -->
+
+        <!--<label class="block text-gray-300 mb-2" for="destination">Destination</label> <!--destination select-->
+        <!-- <select name="destination" id="destination"></select>
+
+        <label class="block text-gray-300 mb-2" for="departureDate"> Departure Date</label> <!--departure date-->
+        <!-- <input type="date" id="departureDate" name="departureDate" /> --> -->
+
+        <!-- <p class="block text-gray-300 mb-2"Number Of Passengers></p> <!--Number of passengre radio input-->
+        <!-- <input type="radio" id="num_passenger" value="1">
+        <label for="num_passenger">Solo Traveler</label>
+
+        <input type="radio" id="num_passenger" value="1">
+        <label for="num_passenger">Couple (2)</label>
+
+        <input type="radio" id="num_passenger" value="1">
+        <label for="num_passenger">Group </label>
+
+        <p>Accomodation Type</p> -->
+        <!-- <div class="acommodation_container"></div>      Accomodation -->
+ 
+    <!-- </form>
+</div>  -->
+
+<div class="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-white text-glow">
+                    Book Your Space Journey
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
+                    Begin your adventure to the stars. Fill out the form below to reserve your spot on our next space voyage.
+                </p>
+            </div>
+
+            <!-- Form Container -->
+            <div class="bg-slate-900/50 backdrop-blur-sm rounded-lg border border-cyan-500/30 p-6 sm:p-8 lg:p-10">
+                
+                <!-- Journey Details Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-cyan-400">
+                        Journey Details
+                    </h2>
+
+                    <!-- Destination -->
+                    <div class="mb-6">
+                        <label for="destination" class="block text-gray-300 mb-2 text-sm sm:text-base">
+                            Destination
+                        </label>
+                        <select id="destination" name="destination" class="w-full bg-slate-800/80 border border-cyan-500/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                            <option value="">Select your destination</option>
+                            <option value="moon">Moon</option>
+                            <option value="mars">Mars</option>
+                            <option value="europa">Europa</option>
+                            <option value="titan">Titan</option>
+                            <option value="orbital-station">Orbital Station</option>
+                            <option value="venus-cloud">Venus Cloud</option>
+                        </select>
+                    </div>
+
+                    <!-- Departure Date -->
+                    <div class="mb-6">
+                        <label for="departureDate" class="block text-gray-300 mb-2 text-sm sm:text-base">
+                            Departure Date
+                        </label>
+                        <input type="date" id="departureDate" name="departureDate" placeholder="mm/dd/yyyy" class="w-full bg-slate-800/80 border border-cyan-500/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                    </div>
+
+                    <!-- Number of Passengers -->
+                    <div class="mb-6">
+                        <p class="block text-gray-300 mb-3 text-sm sm:text-base">Number of Passengers</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="numPassengers" value="solo" checked class="w-4 h-4 text-cyan-500 bg-slate-800 border-cyan-500 focus:ring-cyan-400 focus:ring-2">
+                                <span class="ml-2 text-gray-300">Solo Traveler</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="numPassengers" value="couple" class="w-4 h-4 text-cyan-500 bg-slate-800 border-cyan-500 focus:ring-cyan-400 focus:ring-2">
+                                <span class="ml-2 text-gray-300">Couple (2)</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="numPassengers" value="group" class="w-4 h-4 text-cyan-500 bg-slate-800 border-cyan-500 focus:ring-cyan-400 focus:ring-2">
+                                <span class="ml-2 text-gray-300">Group (3-6)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Accommodation Type -->
+                    <div class="mb-6">
+                        <p class="block text-gray-300 mb-4 text-sm sm:text-base">Accommodation Type</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- Standard Cabin -->
+                            <label class="cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-4 transition-all duration-200">
+                                <input type="radio" name="accommodation" value="standard" class="sr-only">
+                                <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg">
+                                    Standard Cabin
+                                </h3>
+                                <p class="text-gray-400 text-sm">Comfortable private quarters with basic amenities</p>
+                            </label>
+
+                            <!-- Luxury Suite -->
+                            <label class="cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-4 transition-all duration-200">
+                                <input type="radio" name="accommodation" value="luxury" class="sr-only">
+                                <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg">
+                                    Luxury Suite
+                                </h3>
+                                <p class="text-gray-400 text-sm">Spacious suite with premium amenities and viewports</p>
+                            </label>
+
+                            <!-- Zero-G Pod -->
+                            <label class="cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-4 transition-all duration-200">
+                                <input type="radio" name="accommodation" value="zero-g" class="sr-only">
+                                <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg">
+                                    Zero-G Pod
+                                </h3>
+                                <p class="text-gray-400 text-sm">Advanced accommodation with zero-gravity experience</p>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Information Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-cyan-400">
+                        Personal Information
+                    </h2>
+
+                    <div class="bg-slate-800/30 rounded-lg border border-slate-700 p-4 sm:p-6 space-y-4">
+                        <!-- First Name and Last Name -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="firstName" class="block text-gray-300 mb-2 text-sm">
+                                    First Name
+                                </label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-gray-300 mb-2 text-sm">
+                                    Last Name
+                                </label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                            </div>
+                        </div>
+
+                        <!-- Email and Phone -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="email" class="block text-gray-300 mb-2 text-sm">
+                                    Email Address
+                                </label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-gray-300 mb-2 text-sm">
+                                    Phone Number
+                                </label>
+                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                            </div>
+                        </div>
+
+                        <!-- Special Requirements -->
+                        <div>
+                            <label for="specialRequirements" class="block text-gray-300 mb-2 text-sm">
+                                Special Requirements
+                            </label>
+                            <textarea id="specialRequirements" name="specialRequirements" rows="4" placeholder="Any special requirements or notes..." class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition resize-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Passenger Button -->
+                <button type="button" class="w-full bg-slate-800 hover:bg-slate-700 text-cyan-400 font-semibold py-3 px-6 rounded-lg border border-cyan-500/50 hover:border-cyan-400 transition mb-4">
+                    Add Passenger
+                </button>
+
+                <!-- Confirm Booking Button -->
+                <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-4 px-6 rounded-lg shadow-lg shadow-cyan-500/30 transition transform hover:scale-[1.02]">
+                    Confirm Booking
+                </button>
+
+                <!-- Terms -->
+                <p class="text-center text-gray-400 text-sm mt-4">
+                    By confirming, you agree to our 
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300">Terms of Service</a> 
+                    and 
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300">Space Travel Agreement</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
