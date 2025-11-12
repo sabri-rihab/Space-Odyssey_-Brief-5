@@ -2,15 +2,19 @@ async function loadingDestinations() {
   try {
     const res = await fetch("destination.json"); // fetching destination data
     const destinations_data = await res.json();
+    //console.log(destinations_data);
+
 
     const respond = await fetch("accommodations.json"); // fetching accomodation data
     const accomodations_data = await respond.json();
+    //console.log(accomodations_data);
+
 
     const Destination_select = document.querySelector("#destination"); //destination select element
     const personal_info_container = document.querySelector("#personal_info_container"); //personal info container
     const passengers_inputs = document.querySelectorAll("input[name='numPassengers']"); //passengers radio inputs
     const add_passenger_btn = document.querySelector("#add_passenger"); //add passenger button
-    const prix_container = querySelector('#prix');
+    const prix_container = document.querySelector('#prix');
 
     let passengers_count = 1; //default passengers count
     let prix_total = 0;
