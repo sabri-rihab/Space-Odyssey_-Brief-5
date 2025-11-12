@@ -7,42 +7,60 @@
     <link rel="stylesheet" href="style.css">
     <script src="booking.js"></script>
     <title>Space-Voyger Booking</title>
+    <style>
+        #add_passenger{
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #add_passenger.visible{
+            visibility: visible;
+            pointer-events: auto;
+        }
+    </style>
 </head>
 <body>
-<script src="booking.js"></script>
 
+    <!-- Stars Background -->
+    <div id="stars-container"></div>
+    
+    <!-- Navigation -->
+    <nav class="bg-space-dark/80 backdrop-blur-md border-b border-neon-blue/20 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center glow">
+                    <i class="fas fa-rocket text-white"></i>
+                </div>
+                <a href="index.html" class="font-orbitron text-xl font-bold text-glow">SpaceVoyager</a>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link hover:text-neon-blue transition-colors">Home</a>
+                <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
+                <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
+                <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
+                <a href="login.html" id="loginState" class="nav-link hover:text-neon-blue transition-colors">Login</a>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-space-dark/90 backdrop-blur-md">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="index.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Home</a>
+                <a href="destinations.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Destinations</a>
+                <a href="booking.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Booking</a>
+                <a href="about.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">About</a>
+                <a href="login.html" class="hover:text-neon-blue transition-colors py-2">Login</a>
+            </div>
+        </div>
+    </nav>
 
-
-
-<!-- <div class="Booking_container">
-    <div class="booking_text py-16 md:py-24 text-center">
-        <h1 class="font-orbitron text-4xl md:text-6xl font-bold mb-6 text-glow">Book Your Space Adventure</h1>
-        <p class="text-xl md:text-2xl max-w-2xl mx-auto mb-10 text-gray-300">Choose your destination and prepare for an unforgettable journey!</p>
-    </div>
-    <form>
-        <!-- <p class="text-glow">Journey Details</p> -->
-
-        <!--<label class="block text-gray-300 mb-2" for="destination">Destination</label> <!--destination select-->
-        <!-- <select name="destination" id="destination"></select>
-
-        <label class="block text-gray-300 mb-2" for="departureDate"> Departure Date</label> <!--departure date-->
-        <!-- <input type="date" id="departureDate" name="departureDate" /> --> -->
-
-        <!-- <p class="block text-gray-300 mb-2"Number Of Passengers></p> <!--Number of passengre radio input-->
-        <!-- <input type="radio" id="num_passenger" value="1">
-        <label for="num_passenger">Solo Traveler</label>
-
-        <input type="radio" id="num_passenger" value="1">
-        <label for="num_passenger">Couple (2)</label>
-
-        <input type="radio" id="num_passenger" value="1">
-        <label for="num_passenger">Group </label>
-
-        <p>Accomodation Type</p> -->
-        <!-- <div class="acommodation_container"></div>      Accomodation -->
- 
-    <!-- </form>
-</div>  -->
 
 <div class="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
@@ -70,15 +88,9 @@
                         <label for="destination" class="block text-gray-300 mb-2 text-sm sm:text-base">
                             Destination
                         </label>
-                        <select id="destination" name="destination" class="w-full bg-slate-800/80 border border-cyan-500/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
-                            <option value="">Select your destination</option>
-                            <option value="moon">Moon</option>
-                            <option value="mars">Mars</option>
-                            <option value="europa">Europa</option>
-                            <option value="titan">Titan</option>
-                            <option value="orbital-station">Orbital Station</option>
-                            <option value="venus-cloud">Venus Cloud</option>
-                        </select>
+                            <select id="destination" name="destination" class=" w-full bg-slate-800/80 border border-cyan-500/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                                <option value="">Select your destination</option>
+                            </select>
                     </div>
 
                     <!-- Departure Date -->
@@ -94,15 +106,15 @@
                         <p class="block text-gray-300 mb-3 text-sm sm:text-base">Number of Passengers</p>
                         <div class="flex flex-col sm:flex-row gap-4">
                             <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="numPassengers" value="solo" checked class="w-4 h-4 text-cyan-500 bg-slate-800 border-cyan-500 focus:ring-cyan-400 focus:ring-2">
+                                <input type="radio" name="numPassengers" value="solo" checked class="passengers w-4 h-4 text-cyan-500 bg-slate-800 border-cyan-500 focus:ring-cyan-400 focus:ring-2">
                                 <span class="ml-2 text-gray-300">Solo Traveler</span>
                             </label>
                             <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="numPassengers" value="couple" class="w-4 h-4 text-cyan-500 bg-slate-800 border-cyan-500 focus:ring-cyan-400 focus:ring-2">
+                                <input type="radio" name="numPassengers" value="couple" class="passengers w-4 h-4 text-cyan-500 bg-slate-800 border-cyan-500 focus:ring-cyan-400 focus:ring-2">
                                 <span class="ml-2 text-gray-300">Couple (2)</span>
                             </label>
                             <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="numPassengers" value="group" class="w-4 h-4 text-cyan-500 bg-slate-800 border-cyan-500 focus:ring-cyan-400 focus:ring-2">
+                                <input type="radio" name="numPassengers" value="group" class="passengers w-4 h-4 text-cyan-500 bg-slate-800 border-cyan-500 focus:ring-cyan-400 focus:ring-2">
                                 <span class="ml-2 text-gray-300">Group (3-6)</span>
                             </label>
                         </div>
@@ -111,33 +123,7 @@
                     <!-- Accommodation Type -->
                     <div class="mb-6">
                         <p class="block text-gray-300 mb-4 text-sm sm:text-base">Accommodation Type</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <!-- Standard Cabin -->
-                            <label class="cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-4 transition-all duration-200">
-                                <input type="radio" name="accommodation" value="standard" class="sr-only">
-                                <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg">
-                                    Standard Cabin
-                                </h3>
-                                <p class="text-gray-400 text-sm">Comfortable private quarters with basic amenities</p>
-                            </label>
-
-                            <!-- Luxury Suite -->
-                            <label class="cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-4 transition-all duration-200">
-                                <input type="radio" name="accommodation" value="luxury" class="sr-only">
-                                <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg">
-                                    Luxury Suite
-                                </h3>
-                                <p class="text-gray-400 text-sm">Spacious suite with premium amenities and viewports</p>
-                            </label>
-
-                            <!-- Zero-G Pod -->
-                            <label class="cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-4 transition-all duration-200">
-                                <input type="radio" name="accommodation" value="zero-g" class="sr-only">
-                                <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg">
-                                    Zero-G Pod
-                                </h3>
-                                <p class="text-gray-400 text-sm">Advanced accommodation with zero-gravity experience</p>
-                            </label>
+                        <div id="accommodation_container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         </div>
                     </div>
                 </div>
@@ -148,9 +134,9 @@
                         Personal Information
                     </h2>
 
-                    <div class="bg-slate-800/30 rounded-lg border border-slate-700 p-4 sm:p-6 space-y-4">
+                    <div id="personal_info_container" class="bg-slate-800/30 rounded-lg border border-slate-700 p-4 sm:p-6 space-y-4">
                         <!-- First Name and Last Name -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="firstName" class="block text-gray-300 mb-2 text-sm">
                                     First Name
@@ -189,10 +175,12 @@
                             <textarea id="specialRequirements" name="specialRequirements" rows="4" placeholder="Any special requirements or notes..." class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition resize-none"></textarea>
                         </div>
                     </div>
+
+                    </div>
                 </div>
 
                 <!-- Add Passenger Button -->
-                <button type="button" class="w-full bg-slate-800 hover:bg-slate-700 text-cyan-400 font-semibold py-3 px-6 rounded-lg border border-cyan-500/50 hover:border-cyan-400 transition mb-4">
+                <button id="add_passenger" type="button" class="w-full bg-slate-800 hover:bg-slate-700 text-cyan-400 font-semibold py-3 px-6 rounded-lg border border-cyan-500/50 hover:border-cyan-400 transition mb-4">
                     Add Passenger
                 </button>
 
