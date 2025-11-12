@@ -79,7 +79,7 @@
                 
                 <!-- Journey Details Section -->
                 <div class="mb-8">
-                    <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-cyan-400">
+                    <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-cyan-400 text-glow">
                         Journey Details
                     </h2>
 
@@ -88,14 +88,14 @@
                         <label for="destination" class="block text-gray-300 mb-2 text-sm sm:text-base">
                             Destination
                         </label>
-                            <select id="destination" name="destination" class=" w-full bg-slate-800/80 border border-cyan-500/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                            <select id="destination" name="destination" class=" w-full bg-slate-800/80 border border-cyan-500/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition" required>
                                 <option value="">Select your destination</option>
                             </select>
                     </div>
 
                     <!-- Departure Date -->
                     <div class="mb-6">
-                        <label for="departureDate" class="block text-gray-300 mb-2 text-sm sm:text-base">
+                        <label for="departureDate" class="block text-gray-300 mb-2 text-sm sm:text-base text-glow">
                             Departure Date
                         </label>
                         <input type="date" id="departureDate" name="departureDate" placeholder="mm/dd/yyyy" class="w-full bg-slate-800/80 border border-cyan-500/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
@@ -130,13 +130,13 @@
 
                 <!-- Personal Information Section -->
                 <div class="mb-8">
-                    <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-cyan-400">
+                    <h2 class="text-2xl sm:text-3xl font-semibold mb-6 text-cyan-400 text-glow">
                         Personal Information
                     </h2>
 
                     <div id="personal_info_container" class="bg-slate-800/30 rounded-lg border border-slate-700 p-4 sm:p-6 space-y-4">
                         <!-- First Name and Last Name -->
-                                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="firstName" class="block text-gray-300 mb-2 text-sm">
                                     First Name
@@ -175,7 +175,7 @@
                             <textarea id="specialRequirements" name="specialRequirements" rows="4" placeholder="Any special requirements or notes..." class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition resize-none"></textarea>
                         </div>
                     </div>
-
+                    <h2 id="prix" class="text-2xl sm:text-3xl font-semibold mb-6 text-cyan-400 text-glow mt-5 text-sm">Prix Total : </h2>
                     </div>
                 </div>
 

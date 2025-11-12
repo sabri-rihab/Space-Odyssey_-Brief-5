@@ -7,14 +7,13 @@ async function loadingDestinations() {
     const accomodations_data = await respond.json();
 
     const Destination_select = document.querySelector("#destination"); //destination select element
-    const personal_info_container = document.querySelector(
-      "#personal_info_container"
-    ); //personal info container
-    const passengers_inputs = document.querySelectorAll(
-      "input[name='numPassengers']"
-    ); //passengers radio inputs
+    const personal_info_container = document.querySelector("#personal_info_container"); //personal info container
+    const passengers_inputs = document.querySelectorAll("input[name='numPassengers']"); //passengers radio inputs
     const add_passenger_btn = document.querySelector("#add_passenger"); //add passenger button
+    const prix_container = querySelector('#prix');
+
     let passengers_count = 1; //default passengers count
+    let prix_total = 0;
 
     /* ----------------------------------------Handle Destination change-----------------------------------------------------*/
 
@@ -34,6 +33,7 @@ async function loadingDestinations() {
           let temp = "";
           if (acc_dest === optoin_destination) {
             acc_container.innerHTML += `
+                    <div class="acc${accomodation.id}">
                         <label class="cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-4 transition-all duration-200">
                             <input type="radio" name="accommodation" value="${accomodation.id}" class="sr-only">
                             <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg">
@@ -41,7 +41,7 @@ async function loadingDestinations() {
                             </h3>
                             <p class="text-gray-400 text-sm">${accomodation.description}</p>
                         </label>
-    
+                    </div>
                     `;
           }
         });
@@ -52,7 +52,7 @@ async function loadingDestinations() {
 
     add_passenger_btn.addEventListener("click", () => {
       passengers_count++;
-      GenerateForms();
+      GenerateForms(); // call GenerateForms after the passanger_counr change (by clicking the add button)
       console.log(passengers_count);
     });
 
@@ -74,13 +74,13 @@ async function loadingDestinations() {
           default:
             passengers_count = 1;
         }
-        GenerateForms();
+        GenerateForms(); // call GenerateForms after the passanger_count change
         console.log(passengers_count);
       });
     });
 
     function GenerateForms() {
-      personal_info_container.innerHTML = ""; //clearing previous personal info forms
+      personal_info_container.innerHTML = ""; //clearing previous personal info forms (by changing the radio input value)
       for (let i = 1; i <= passengers_count; i++) {
         personal_info_container.innerHTML += `
                     <div id="passenger${i}">
@@ -90,13 +90,13 @@ async function loadingDestinations() {
                                 <label for="firstName" class="block text-gray-300 mb-2 text-sm">
                                     First Name
                                 </label>
-                                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition" required>
                             </div>
                             <div>
                                 <label for="lastName" class="block text-gray-300 mb-2 text-sm">
                                     Last Name
                                 </label>
-                                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition" required>
                             </div>
                         </div>
 
@@ -106,13 +106,13 @@ async function loadingDestinations() {
                                 <label for="email" class="block text-gray-300 mb-2 text-sm">
                                     Email Address
                                 </label>
-                                <input type="email" id="email" name="email" placeholder="Enter your email" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                                <input type="email" id="email" name="email" placeholder="Enter your email" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition" required>
                             </div>
                             <div>
                                 <label for="phone" class="block text-gray-300 mb-2 text-sm">
                                     Phone Number
                                 </label>
-                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" class="w-full bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition" required>
                             </div>
                         </div>
 
@@ -127,6 +127,10 @@ async function loadingDestinations() {
                 </div>
         `;
       }
+    }
+
+    function CalculateTotalPrice(){
+
     }
 
     console.log(destinations);
