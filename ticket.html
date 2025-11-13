@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Journey Ticket</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "space-dark": "#0a0a18",
+              "space-blue": "#1a1a2e",
+              "space-purple": "#16213e",
+              "neon-blue": "#0ea5e9",
+              "neon-purple": "#8b5cf6",
+              "neon-cyan": "#06b6d4",
+            },
+            fontFamily: {
+              orbitron: ["Orbitron", "sans-serif"],
+              exo: ["Exo 2", "sans-serif"],
+            },
+            backgroundImage: {
+              "space-pattern":
+                "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgxMzUpIj48cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMWExYTJlIi8+PHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9IiMyNjEzZTQiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+')",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background: linear-gradient(to bottom, #0a0a18, #1a1a2e, #16213e);
+        background-attachment: fixed;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(
+            circle at 10% 20%,
+            rgba(14, 165, 233, 0.1) 0%,
+            transparent 20%
+          ),
+          radial-gradient(
+            circle at 90% 60%,
+            rgba(139, 92, 246, 0.1) 0%,
+            transparent 20%
+          ),
+          radial-gradient(
+            circle at 40% 80%,
+            rgba(6, 182, 212, 0.1) 0%,
+            transparent 20%
+          );
+        z-index: -1;
+      }
+
+      .star {
+        position: absolute;
+        background-color: white;
+        border-radius: 50%;
+        animation: twinkle 5s infinite;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.2;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      .glow {
+        box-shadow: 0 0 15px rgba(14, 165, 233, 0.5);
+      }
+
+      .text-glow {
+        text-shadow: 0 0 10px rgba(14, 165, 233, 0.7);
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+        background: rgba(26, 26, 46, 0.7);
+        backdrop-filter: blur(10px);
+      }
+
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(14, 165, 233, 0.3);
+      }
+
+      .nav-link {
+        position: relative;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(to right, #0ea5e9, #8b5cf6);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .planet-card {
+        background: rgba(22, 33, 62, 0.7);
+        border: 1px solid rgba(14, 165, 233, 0.3);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .planet-card:hover {
+        border-color: rgba(14, 165, 233, 0.7);
+        box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+      }
+
+      .btn-primary {
+        background: linear-gradient(to right, #0ea5e9, #8b5cf6);
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
+      }
+
+      .mobile-menu {
+        transition: all 0.3s ease;
+        max-height: 0;
+        overflow: hidden;
+      }
+
+      .mobile-menu.open {
+        max-height: 300px;
+      }
+      @media print {
+        #navBar,
+        #dwlBtn {
+          display: none !important;
+        }
+        body {
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        .ticket-container {
+          padding: 1rem !important;
+          margin: 0 !important;
+          box-shadow: none !important;
+          border: 1px solid rgba(59, 130, 246, 0.3) !important;
+        }
+
+        /* Reduce spacing between sections */
+        .ticket-container > * {
+          margin-top: 0.5rem !important;
+          margin-bottom: 0.5rem !important;
+        }
+
+        /* Reduce header padding */
+        .ticket-container > div:first-child {
+          padding-bottom: 0.5rem !important;
+          margin-bottom: 0.5rem !important;
+        }
+
+        /* Reduce price section padding */
+        .price-section {
+          padding: 1rem !important;
+          margin-top: 0.5rem !important;
+        }
+
+        /* Reduce divider margins */
+        .section-divider {
+          margin-top: 0.5rem !important;
+          margin-bottom: 0.5rem !important;
+        }
+
+        /* Reduce padding on individual sections */
+        .px-4 {
+          padding-left: 0.5rem !important;
+          padding-right: 0.5rem !important;
+        }
+
+        /* Make table more compact */
+        table th,
+        table td {
+          padding: 0.25rem 0.5rem !important;
+          font-size: 0.75rem !important;
+        }
+
+        /* Hide download button when printing */
+        button {
+          display: none !important;
+        }
+
+        /* Prevent page breaks inside elements */
+        .ticket-container,
+        table,
+        .price-section {
+          page-break-inside: avoid !important;
+        }
+      } /*---------------ticket--------------------*/
+      .ticket-container {
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.95),
+          rgba(30, 41, 59, 0.9)
+        );
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.2),
+          inset 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .ticket-title {
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .section-divider {
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(59, 130, 246, 0.5),
+          transparent
+        );
+      }
+
+      .price-section {
+        background: linear-gradient(
+          135deg,
+          rgba(59, 130, 246, 0.2),
+          rgba(139, 92, 246, 0.2)
+        );
+      }
+
+      .price-amount {
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    </style>
+  </head>
+  <body class="text-white font-exo min-h-screen">
+    <!-- Stars Background -->
+    <div id="stars-container"></div>
+
+    <!-- Navigation -->
+    <nav
+      id="navBar"
+      class="bg-space-dark/80 backdrop-blur-md border-b border-neon-blue/20 sticky top-0 z-50"
+    >
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center glow"
+          >
+            <i class="fas fa-rocket text-white"></i>
+          </div>
+          <a href="index.html" class="font-orbitron text-xl font-bold text-glow"
+            >SpaceVoyager</a
+          >
+        </div>
+
+        <div class="hidden md:flex space-x-8">
+          <a
+            href="index.html"
+            class="nav-link hover:text-neon-blue transition-colors"
+            >Home</a
+          >
+          <a
+            href="destinations.html"
+            class="nav-link hover:text-neon-blue transition-colors"
+            >Destinations</a
+          >
+          <a
+            href="booking.html"
+            class="nav-link hover:text-neon-blue transition-colors"
+            >Booking</a
+          >
+          <a
+            href="about.html"
+            class="nav-link hover:text-neon-blue transition-colors"
+            >About</a
+          >
+          <a
+            href="login.html"
+            id="loginState"
+            class="nav-link hover:text-neon-blue transition-colors"
+            >Login</a
+          >
+        </div>
+
+        <!-- Mobile menu button -->
+        <div id="menuMobile" class="md:hidden">
+          <button id="mobile-menu-button" class="text-white focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="mobile-menu md:hidden bg-space-dark/90 backdrop-blur-md"
+      >
+        <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+          <a
+            href="index.html"
+            class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20"
+            >Home</a
+          >
+          <a
+            href="destinations.html"
+            class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20"
+            >Destinations</a
+          >
+          <a
+            href="booking.html"
+            class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20"
+            >Booking</a
+          >
+          <a
+            href="about.html"
+            class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20"
+            >About</a
+          >
+          <a
+            href="login.html"
+            class="hover:text-neon-blue transition-colors py-2"
+            >Login</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <div id="ticket" class="max-w-4xl mx-auto">
+      <div
+        class="ticket-container rounded-xl border-2 border-blue-500/30 p-6 sm:p-8 md:p-10 space-y-8"
+      >
+        <!-- Header -->
+        <div class="text-center pb-6 border-b border-blue-500/30">
+          <h1
+            class="ticket-title text-3xl sm:text-4xl md:text-5xl font-bold tracking-wider mb-3"
+          >
+            TICKET TO SPACE
+          </h1>
+          <p class="text-blue-400 text-sm sm:text-base">
+            Your Gateway to the Stars
+          </p>
+        </div>
+
+        <!-- Ticket ID -->
+        <div
+          class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-4 py-4 bg-slate-800/30 rounded-lg"
+        >
+          <div>
+            <p class="text-blue-400 text-sm font-semibold tracking-wider mb-2">
+              TICKET ID
+            </p>
+            <p class="text-indigo-100 text-xl font-mono">SV-2025-A7X9K2</p>
+          </div>
+          <div class="sm:text-right">
+            <p class="text-xs text-blue-400 mb-1">ISSUE DATE</p>
+            <p class="text-sm text-gray-300">November 13, 2025</p>
+          </div>
+        </div>
+
+        <div class="section-divider h-px"></div>
+
+        <!-- Journey Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
+          <div class="bg-slate-800/20 p-5 rounded-lg">
+            <p class="text-blue-400 text-sm font-semibold tracking-wider mb-3">
+              DESTINATION
+            </p>
+            <p class="text-indigo-100 text-lg">Mars Colony Alpha</p>
+          </div>
+          <div class="bg-slate-800/20 p-5 rounded-lg">
+            <p class="text-blue-400 text-sm font-semibold tracking-wider mb-3">
+              TRAVEL DAYS
+            </p>
+            <p class="text-indigo-100 text-lg">7 Days</p>
+          </div>
+        </div>
+
+        <div class="section-divider h-px"></div>
+
+        <!-- Activities -->
+        <div class="px-4">
+          <p class="text-blue-400 text-sm font-semibold tracking-wider mb-4">
+            ACTIVITIES
+          </p>
+          <ul class="space-y-3 text-gray-300">
+            <li class="flex items-start gap-3 pl-2">
+              <span class="text-blue-500 font-bold mt-1">→</span>
+              <span>Spacewalk Experience & EVA Training</span>
+            </li>
+            <li class="flex items-start gap-3 pl-2">
+              <span class="text-blue-500 font-bold mt-1">→</span>
+              <span>Mars Surface Exploration Tour</span>
+            </li>
+            <li class="flex items-start gap-3 pl-2">
+              <span class="text-blue-500 font-bold mt-1">→</span>
+              <span>Zero-Gravity Recreation Sessions</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="section-divider h-px"></div>
+
+        <!-- Accommodation -->
+        <div class="px-4">
+          <div class="bg-slate-800/20 p-5 rounded-lg inline-block">
+            <p class="text-blue-400 text-sm font-semibold tracking-wider mb-3">
+              ACCOMMODATION
+            </p>
+            <p class="text-indigo-100 text-lg">Luxury Suite</p>
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="px-4 mt-6">
+          <p class="text-blue-400 text-sm font-semibold tracking-wider mb-4">
+            FEATURES
+          </p>
+          <ul class="space-y-3 text-gray-300">
+            <li class="flex items-start gap-3 pl-2">
+              <span class="text-blue-500 font-bold mt-1">✓</span>
+              <span>Premium panoramic viewport</span>
+            </li>
+            <li class="flex items-start gap-3 pl-2">
+              <span class="text-blue-500 font-bold mt-1">✓</span>
+              <span>Personal AI assistant & concierge</span>
+            </li>
+            <li class="flex items-start gap-3 pl-2">
+              <span class="text-blue-500 font-bold mt-1">✓</span>
+              <span>Gourmet space cuisine dining</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="section-divider h-px"></div>
+
+        <!-- Passengers Table -->
+        <div class="px-4">
+          <p class="text-blue-400 text-sm font-semibold tracking-wider mb-4">
+            PASSENGERS
+          </p>
+          <div class="overflow-x-auto rounded-lg border border-blue-500/30">
+            <table class="w-full">
+              <thead>
+                <tr class="bg-blue-500/20 border-b-2 border-blue-500/40">
+                  <th class="text-left text-blue-400 font-semibold p-4">#</th>
+                  <th class="text-left text-blue-400 font-semibold p-4">
+                    First Name
+                  </th>
+                  <th class="text-left text-blue-400 font-semibold p-4">
+                    Last Name
+                  </th>
+                  <th class="text-left text-blue-400 font-semibold p-4">
+                    Phone Number
+                  </th>
+                  <th class="text-left text-blue-400 font-semibold p-4">
+                    Email
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-300">
+                <tr class="border-b border-blue-500/20">
+                  <td class="p-4">1</td>
+                  <td class="p-4">John</td>
+                  <td class="p-4">Doe</td>
+                  <td class="p-4">+1 555-0123</td>
+                  <td class="p-4">john.doe@email.com</td>
+                </tr>
+                <tr>
+                  <td class="p-4">2</td>
+                  <td class="p-4">Jane</td>
+                  <td class="p-4">Smith</td>
+                  <td class="p-4">+1 555-0124</td>
+                  <td class="p-4">jane.smith@email.com</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="section-divider h-px"></div>
+
+        <!-- Price -->
+        <div
+          class="price-section rounded-xl border-2 border-blue-500/40 p-8 text-center mx-4"
+        >
+          <p class="text-blue-400 text-sm font-semibold tracking-wider mb-3">
+            TOTAL PRICE
+          </p>
+          <p class="price-amount text-5xl font-bold">$125,000.00</p>
+          <p class="text-xs text-blue-300 mt-3">All taxes and fees included</p>
+        </div>
+        <!-- download button -->
+        <div id="dwlBtn" class="px-4 mt-6">
+          <button
+            onclick="window.print()"
+            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] border border-blue-400/30 tracking-wider"
+          >
+            <span class="flex items-center justify-center gap-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
+              </svg>
+              DOWNLOAD TICKET
+            </span>
+          </button>
+        </div>
+        <!-- Footer -->
+        <div
+          class="text-center pt-6 text-xs sm:text-sm text-gray-400 border-t border-blue-500/20 mt-6"
+        >
+          <p>Thank you for choosing SpaceVoyager</p>
+          <p class="mt-2">Safe travels among the stars! 🚀</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
