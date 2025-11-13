@@ -2,28 +2,34 @@ async function loadingDestinations() {
   try {
     const res = await fetch("destination.json"); // fetching destination data
     const destinations_data = await res.json();
-    //console.log(destinations_data);
 
     const respond = await fetch("accommodations.json"); // fetching accomodation data
     const accomodations_data = await respond.json();
-    //console.log(accomodations_data);
 
-    const Destination_select = document.querySelector("#destination"); //destination select element
-    const personal_info_container = document.querySelector(
-      "#personal_info_container"
-    ); //personal info container
-    const passengers_inputs = document.querySelectorAll(
-      "input[name='numPassengers']"
-    ); //passengers radio inputs
+    const personal_info_container = document.querySelector("#personal_info_container"); //personal info container
+    const passengers_inputs = document.querySelectorAll("input[name='numPassengers']"); //passengers radio inputs
     const add_passenger_btn = document.querySelector("#add_passenger"); //add passenger button
     const prix_container = document.querySelector("#prix");
+    
+    
+    /* CALLING VALIDATION INPUTS */
+    const Destination_select = document.querySelector("#destination"); //destination select element
+    const submitionBtn = document.querySelector('#SubmitBtn');
+    const accInput = document.querySelector('input[name="accommodation"]:checked');
+    const FirtNameInput = document.querySelector('#firstName');
+    const LastNameInput = document.querySelector('#lastName');
+    const EmailInput = document.querySelector('#email');
+    const PhoneInput = document.querySelector('#phone');
+    const DateInput = document.querySelector('#departureDate')
 
+
+    
     /*--------- price varibales ---------- */
     let destinationPrice = 0;
     let travelDuration = 0;
     let PricePerDay = 0;
 
-    let passengers_count = 1; //default passengers count
+    let passengers_count = 1; 
     let prix_total = 0;
 
     /* --------------------------------------- HANDLE DESTINATION CHANGE -----------------------------------------------------*/
@@ -46,12 +52,12 @@ async function loadingDestinations() {
 
       accommodations_arr.forEach((accomodation) => {
         accomodation.availableOn.forEach((acc_dest) => {
-          let temp = "";
           if (acc_dest === optoin_destination) {
+            const isChecked = accomodation.id === "luxury"? "checked" : "";          //checked by default
             acc_container.innerHTML += `
                 <div class="acc${accomodation.id}">
                     <label class="block cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-6 transition-all duration-200 h-full">
-                    <input type="radio" name="accommodation" id="${accomodation.id}" value="${accomodation.pricePerDay}" class="sr-only peer">
+                    <input type="radio" name="accommodation" id="${accomodation.id}" value="${accomodation.pricePerDay}" class="sr-only peer"  ${isChecked}>
                     <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg"> ${accomodation.name}</h3>
                     <p class="text-gray-400 text-sm">${accomodation.description}</p>
                     </label>
@@ -63,6 +69,9 @@ async function loadingDestinations() {
     });
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
 
 
 
@@ -150,8 +159,39 @@ async function loadingDestinations() {
     }
 
 
+    /*-------------------------------------------------- REGEX & VALIDATION ---------------------------------------------------------------------- */
+    const NameRegex = /^[A-Za-z]{3,20}$/;
+    const EmailRegex = /^\w+@\w+\.\w+$/;
+    const PhoneRegex = /^{+212}\s+0[6-7]\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?$/;
+    
+    function FormValidation(input, regex, errorMsg){
+        if(regex.test(input.value)){
+            input.classList.remove('focus:border-cyan-400');
+            input.classList.add('focus:border-red-400');
+            alert(errorMsg);
+            //Error.textContent = errorMsg;
+            return false;
+        }else {
+            input.classList.remove('focus:border-red-400');
+            input.classList.add('focus:border-cyan-400');
+            return true;
+        }
+    }
 
+    //VALIDATION WHILE TYPING
+    FirtNameInput.addEventListener('input', () => {FormValidation(FirtNameInput, NameRegex, "invalid Name");})
+    LastNameInput.addEventListener('input', () => {FormValidation(LastNameInput, NameRegex, "invalid Name");})
+    EmailInput.addEventListener('input', () => {FormValidation(EmailInput, EmailRegex, "invalid Name");})
+    PhoneInput.addEventListener('input', () => {FormValidation(FirtNameInput, PhoneRegex, "invalid Name");})
 
+    submitionBtn.addEventListener('click', () => {
+        if (BookingValidation()) {
+            alert("success");
+        } else {
+            alert("your reservation is not valid");
+        }
+
+    })
 
     /*-------------------------------------------------- Calculate the Total Price --------------------------------------------------- */
     document.addEventListener("change", function (e) {
@@ -192,8 +232,6 @@ async function loadingDestinations() {
 
 
 
-    console.log(destinations);
-    console.log(accomodations);
   } catch (error) {
     console.error("error loading data", error);
   }
