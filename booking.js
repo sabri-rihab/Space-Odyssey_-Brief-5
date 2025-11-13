@@ -251,6 +251,8 @@ async function loadingDestinations() {
     const passengers_inputs = document.querySelectorAll("input[name='numPassengers']"); //passengers radio inputs
     const add_passenger_btn = document.querySelector("#add_passenger"); //add passenger button
     const prix_container = document.querySelector("#prix");
+
+    let myReservations = [];
     
     
     /* CALLING VALIDATION INPUTS */
@@ -288,11 +290,10 @@ async function loadingDestinations() {
       accommodations_arr.forEach((accomodation) => {
         accomodation.availableOn.forEach((acc_dest) => {
           if (acc_dest === optoin_destination) {
-            const isChecked = accomodation.id === "luxury"? "checked" : "";          //checked by default
             acc_container.innerHTML += `
                 <div class="acc${accomodation.id}">
                     <label class="block cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-6 transition-all duration-200 h-full">
-                    <input type="radio" name="accommodation" id="${accomodation.id}" value="${accomodation.pricePerDay}" class="sr-only peer"  ${isChecked}>
+                    <input type="radio" name="accommodation" id="${accomodation.id}" value="${accomodation.pricePerDay}" class="sr-only peer">
                     <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg"> ${accomodation.name}</h3>
                     <p class="text-gray-400 text-sm">${accomodation.description}</p>
                     </label>
@@ -391,19 +392,6 @@ async function loadingDestinations() {
     const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const PhoneRegex = /^[\+]?[0-9]{6,15}$/;
     
-    // function FormValidation(input, regex, errorMsg){
-    //     if(!regex.test(input.value)){
-    //         input.classList.remove('focus:border-cyan-400');
-    //         input.classList.add('focus:border-red-400');
-    //         alert(errorMsg);
-    //         return false;
-    //     }else {
-    //         input.classList.remove('focus:border-red-400');
-    //         input.classList.add('focus:border-cyan-400');
-    //         return true;
-    //     }
-    // }
-
 
     function FormValidation(input, regex, errorMsg){
     if(!regex.test(input.value)){
@@ -430,6 +418,23 @@ async function loadingDestinations() {
         errorAccomodation.textContent = "Please select an accommodation";
         isValid = false;
       } else {errorAccomodation.textContent = "";}
+
+      if(!DateInput.value){
+        errorDate.textContent = "invalide date";
+        isValid = false;
+      } else {
+        const selectedDate = new Date(DateInput.value);
+        const today = new Date();
+        const minDate = new Date();
+        minDate.setDate(today.getDate() + 30);
+        if (selectedDate < minDate) {
+             errorDate.textContent = "Date must be at least 30 days from today.";
+             isValid = false;
+         } else {
+             errorDate.textContent = "";
+         }
+      }
+
 
       const firstNames = document.querySelectorAll('input[name="firstName"]');
       const lastNames = document.querySelectorAll('input[name="lastName"]');
@@ -483,6 +488,11 @@ async function loadingDestinations() {
         prix_total = parseFloat(travelDuration * 2 * PricePerDay * passengers_count + destinationPrice);
         prix_container.innerHTML = prix_total;
         console.log(prix_total); 
+    }
+
+
+    function AddReservation(){
+
     }
 
   } catch (error) {
