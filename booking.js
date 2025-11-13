@@ -4,29 +4,41 @@ async function loadingDestinations() {
     const destinations_data = await res.json();
     //console.log(destinations_data);
 
-
     const respond = await fetch("accommodations.json"); // fetching accomodation data
     const accomodations_data = await respond.json();
     //console.log(accomodations_data);
 
-
     const Destination_select = document.querySelector("#destination"); //destination select element
-    const personal_info_container = document.querySelector("#personal_info_container"); //personal info container
-    const passengers_inputs = document.querySelectorAll("input[name='numPassengers']"); //passengers radio inputs
+    const personal_info_container = document.querySelector(
+      "#personal_info_container"
+    ); //personal info container
+    const passengers_inputs = document.querySelectorAll(
+      "input[name='numPassengers']"
+    ); //passengers radio inputs
     const add_passenger_btn = document.querySelector("#add_passenger"); //add passenger button
-    const prix_container = document.querySelector('#prix');
+    const prix_container = document.querySelector("#prix");
+
+    /*--------- price varibales ---------- */
+    let destinationPrice = 0;
+    let travelDuration = 0;
+    let PricePerDay = 0;
 
     let passengers_count = 1; //default passengers count
     let prix_total = 0;
 
-    /* ----------------------------------------Handle Destination change-----------------------------------------------------*/
+    /* --------------------------------------- HANDLE DESTINATION CHANGE -----------------------------------------------------*/
 
     const acc_container = document.querySelector("#accommodation_container"); //accomodation container
     destinations_data.destinations.forEach((destination) => {
-      Destination_select.innerHTML += `<option value="${destination.id}">${destination.id}</option>`;
+      Destination_select.innerHTML += `<option data-price="${destination.price}" data-travelDays="${destination.travelDays}" value="${destination.id}">${destination.id}</option>`;
     });
 
-    const accommodations_arr = accomodations_data.accommodations; //accomodation array from destination data
+    const accommodations_arr = accomodations_data.accommodations; //ACCOMODATION ARRAY
+
+
+
+    
+    /*------------------------------------------------ HANDLE ACOOMODATION CHANGE ------------------------------- */
 
     Destination_select.addEventListener("change", (e) => {
       let optoin_destination = Destination_select.value; //destination value value
@@ -37,26 +49,29 @@ async function loadingDestinations() {
           let temp = "";
           if (acc_dest === optoin_destination) {
             acc_container.innerHTML += `
-                    <div class="acc${accomodation.id}">
-                        <label class="cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-4 transition-all duration-200">
-                            <input type="radio" name="accommodation" value="${accomodation.id}" class="sr-only">
-                            <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg">
-                                ${accomodation.name}
-                            </h3>
-                            <p class="text-gray-400 text-sm">${accomodation.description}</p>
-                        </label>
-                    </div>
+                <div class="acc${accomodation.id}">
+                    <label class="block cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-6 transition-all duration-200 h-full">
+                    <input type="radio" name="accommodation" id="${accomodation.id}" value="${accomodation.pricePerDay}" class="sr-only peer">
+                    <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg"> ${accomodation.name}</h3>
+                    <p class="text-gray-400 text-sm">${accomodation.description}</p>
+                    </label>
+                </div>
                     `;
           }
         });
       });
     });
 
-    /* ----------------------------------------Handle Passengers number change-----------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------------------*/
+
+
+
+    // /* ----------------------------------------Handle Passengers number change-----------------------------------------------------*/
 
     add_passenger_btn.addEventListener("click", () => {
       passengers_count++;
       GenerateForms(); // call GenerateForms after the passanger_counr change (by clicking the add button)
+      CalculateTotalPrice();
       console.log(passengers_count);
     });
 
@@ -79,6 +94,7 @@ async function loadingDestinations() {
             passengers_count = 1;
         }
         GenerateForms(); // call GenerateForms after the passanger_count change
+        CalculateTotalPrice();
         console.log(passengers_count);
       });
     });
@@ -133,9 +149,48 @@ async function loadingDestinations() {
       }
     }
 
-    function CalculateTotalPrice(){
 
+
+
+
+    /*-------------------------------------------------- Calculate the Total Price --------------------------------------------------- */
+    document.addEventListener("change", function (e) {
+      // get the accomodation price per day
+      if (e.target.name === "accommodation") {
+        PricePerDay = e.target.value;
+        const accId = e.target.id;
+        console.log("Price per day:", PricePerDay);
+        console.log("Selected ID:", accId);
+        CalculateTotalPrice();
+      }
+    });
+
+    document.addEventListener("change", function (e) {
+      // get the destination TravelDuration and Price
+      if (e.target.name === "destination") {
+        const selectedOption = e.target.selectedOptions[0];
+        let destinationID = selectedOption.value;
+        travelDuration = parseInt(selectedOption.dataset.traveldays);
+        destinationPrice= parseFloat(selectedOption.dataset.price);
+
+        console.log("destination's ID :", destinationID);
+        console.log("destination's price :", destinationPrice);
+        console.log("travel duration :", travelDuration);
+        CalculateTotalPrice();
+        
+      }
+    });
+
+    function CalculateTotalPrice(){
+        //let TotalPrice = 0;
+        prix_total = parseFloat(travelDuration * 2 * PricePerDay * passengers_count + destinationPrice);
+        prix_container.innerHTML = prix_total;
+        console.log(prix_total); 
     }
+/*----------------------------------------------------------------------------------------------------------------------------- */
+
+
+
 
     console.log(destinations);
     console.log(accomodations);
