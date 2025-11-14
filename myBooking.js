@@ -160,6 +160,15 @@
 
 async function loadReservation() {
   try {
+    const res = await fetch("destination.json"); // fetching destination data
+    const destinations_data = await res.json();
+
+    const respond = await fetch("accommodations.json"); // fetching accomodation data
+    const accomodations_data = await respond.json();
+
+    const destination_arr = destinations_data.destination;
+    const accomodation_arr = accomodations_data.destination;
+
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     const myReservations = JSON.parse(localStorage.getItem("myReservations")) || [];
     const container = document.querySelector("#myBookingsContainer");

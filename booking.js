@@ -16,13 +16,12 @@ async function loadingDestinations() {
     const prix_container = document.querySelector("#prix");
 
     // let myReservations = [];
-    let myReservations = JSON.parse(localStorage.getItem("myReservations")) || [];
+    let myReservations =
+      JSON.parse(localStorage.getItem("myReservations")) || [];
 
-
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));  //calling current user from localStorage
+    const currentUser = JSON.parse(localStorage.getItem("currentUser")); //calling current user from localStorage
     //localStorage.setItem("res_id", 0); // storing a variable with the reservationID with default value 0 in local storage
     let res_id = parseInt(localStorage.getItem("res_id"), 10) || 0; // calling the reservation_id
-
 
     /* CALLING VALIDATION INPUTS */
     const Destination_select = document.querySelector("#destination"); //destination select element
@@ -61,13 +60,12 @@ async function loadingDestinations() {
           if (acc_dest === optoin_destination) {
             acc_container.innerHTML += `
                 <div class="acc${accomodation.id}">
-                    <label class="block cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-6 transition-all duration-200 h-full">
                     <input type="radio" name="accommodation" id="${accomodation.id}" value="${accomodation.pricePerDay}" class="sr-only peer">
-                    <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg"> ${accomodation.name}</h3>
-                    <p class="text-gray-400 text-sm">${accomodation.description}</p>
+                    <label for="${accomodation.id}" class="block cursor-pointer rounded-lg border-2 border-slate-700 bg-slate-800/50 hover:border-cyan-500/50 p-6 transition-all duration-200 h-full peer-checked:border-cyan-500 peer-checked:bg-cyan-500/10">
+                        <h3 class="text-cyan-400 font-semibold mb-2 text-base sm:text-lg"> ${accomodation.name}</h3>
+                        <p class="text-gray-400 text-sm">${accomodation.description}</p>
                     </label>
-                </div>
-                    `;
+                </div>                 `;
           }
         });
       });
@@ -209,7 +207,7 @@ async function loadingDestinations() {
         }
       }
 
-      if(!currentUser || currentUser.login !== 'true'){
+      if (!currentUser || currentUser.login !== "true") {
         isValid = false;
       }
 
@@ -244,7 +242,6 @@ async function loadingDestinations() {
         AddReservation();
         res_id++;
         localStorage.setItem("res_id", res_id);
-        
       } else {
         alert("your reservation is not valid");
       }
@@ -310,7 +307,9 @@ async function loadingDestinations() {
       }
 
       // Get selected accommodation ID
-      const accInput = document.querySelector('input[name="accommodation"]:checked');
+      const accInput = document.querySelector(
+        'input[name="accommodation"]:checked'
+      );
 
       // Create reservation object
       const reservation = {
