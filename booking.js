@@ -15,10 +15,14 @@ async function loadingDestinations() {
     const add_passenger_btn = document.querySelector("#add_passenger"); //add passenger button
     const prix_container = document.querySelector("#prix");
 
-    let myReservations = [];
-    let passengers = [];
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    let res_id = 0;
+    // let myReservations = [];
+    let myReservations = JSON.parse(localStorage.getItem("myReservations")) || [];
+
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));  //calling current user from localStorage
+    //localStorage.setItem("res_id", 0); // storing a variable with the reservationID with default value 0 in local storage
+    let res_id = parseInt(localStorage.getItem("res_id"), 10) || 0; // calling the reservation_id
+
 
     /* CALLING VALIDATION INPUTS */
     const Destination_select = document.querySelector("#destination"); //destination select element
@@ -239,7 +243,8 @@ async function loadingDestinations() {
         alert("success");
         AddReservation();
         res_id++;
-
+        localStorage.setItem("res_id", res_id);
+        
       } else {
         alert("your reservation is not valid");
       }
@@ -320,8 +325,10 @@ async function loadingDestinations() {
 
       // Add to array
       myReservations.push(reservation);
-
+      localStorage.setItem("myReservations", JSON.stringify(myReservations));
       console.log("Reservation added:", reservation);
+      console.log("my reservation :", myReservations);
+      window.location.href = "ticket.html";
     }
   } catch (error) {
     console.error("error loading data", error);

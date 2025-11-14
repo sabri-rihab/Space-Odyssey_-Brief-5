@@ -13,11 +13,16 @@ async function CheckLogIn() {
     // Check current user on page load
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (currentUser && currentUser.login === "true") {
-      if (state) state.textContent = "Logout";
-      if (welcome) welcome.textContent = `Welcome, ${currentUser.name}!`;
+        if (state) state.textContent = "Logout";
+        if (welcome) welcome.textContent = `Welcome, ${currentUser.name}!`;
+        // loginBtn.style.cursor  = "no-drop";
+        // loginBtn.style.pointerEvents  = "none";
     }
+    // else{
+    //     loginBtn.style.cursor = "pointer";
+    //     loginBtn.style.pointerEvents  = "auto";
+    // }
 
-    // check if login before accessing booking
 
     // Login logic
     if (loginBtn) {
@@ -54,7 +59,7 @@ async function CheckLogIn() {
     console.log(currentUser);
 
 
-  if (booking) {
+//   if (booking) {
       booking.addEventListener("click", (e) => {
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         
@@ -67,9 +72,9 @@ async function CheckLogIn() {
         }
         // If user is logged in, allow the click to proceed naturally
       });
-    } else {
-      console.log("Booking element not found");
-    }
+    // } else {
+    //   console.log("Booking element not found");
+    // }
   } catch (error) {
     console.error("Error loading users", error);
   }

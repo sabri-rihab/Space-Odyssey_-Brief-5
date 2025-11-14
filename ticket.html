@@ -160,7 +160,7 @@
       }
       @media print {
         #navBar,
-        #dwlBtn {
+        #dwlBtn, #footer {
           display: none !important;
         }
         body {
@@ -267,6 +267,7 @@
     </style>
   </head>
   <body class="text-white font-exo min-h-screen">
+
     <!-- Stars Background -->
     <div id="stars-container"></div>
 
@@ -389,11 +390,11 @@
             <p class="text-blue-400 text-sm font-semibold tracking-wider mb-2">
               TICKET ID
             </p>
-            <p class="text-indigo-100 text-xl font-mono">SV-2025-A7X9K2</p>
+            <p id="ticketID" class="text-indigo-100 text-xl font-mono"></p>
           </div>
           <div class="sm:text-right">
             <p class="text-xs text-blue-400 mb-1">ISSUE DATE</p>
-            <p class="text-sm text-gray-300">November 13, 2025</p>
+            <p id="ticketDate" class="text-sm text-gray-300"></p>
           </div>
         </div>
 
@@ -405,24 +406,24 @@
             <p class="text-blue-400 text-sm font-semibold tracking-wider mb-3">
               DESTINATION
             </p>
-            <p class="text-indigo-100 text-lg">Mars Colony Alpha</p>
+            <p id="ticketDestination" class="text-indigo-100 text-lg"></p>
           </div>
           <div class="bg-slate-800/20 p-5 rounded-lg">
             <p class="text-blue-400 text-sm font-semibold tracking-wider mb-3">
               TRAVEL DAYS
             </p>
-            <p class="text-indigo-100 text-lg">7 Days</p>
+            <p id="ticketTravelDays" class="text-indigo-100 text-lg"></p>
           </div>
         </div>
 
         <div class="section-divider h-px"></div>
 
         <!-- Activities -->
-        <div class="px-4">
+        <div id="ActivitiesContainer" class="px-4">
           <p class="text-blue-400 text-sm font-semibold tracking-wider mb-4">
             ACTIVITIES
           </p>
-          <ul class="space-y-3 text-gray-300">
+          <!-- <ul class="space-y-3 text-gray-300">
             <li class="flex items-start gap-3 pl-2">
               <span class="text-blue-500 font-bold mt-1">→</span>
               <span>Spacewalk Experience & EVA Training</span>
@@ -435,7 +436,7 @@
               <span class="text-blue-500 font-bold mt-1">→</span>
               <span>Zero-Gravity Recreation Sessions</span>
             </li>
-          </ul>
+          </ul> -->
         </div>
 
         <div class="section-divider h-px"></div>
@@ -446,16 +447,16 @@
             <p class="text-blue-400 text-sm font-semibold tracking-wider mb-3">
               ACCOMMODATION
             </p>
-            <p class="text-indigo-100 text-lg">Luxury Suite</p>
+            <p id="ticketAccomodation" class="text-indigo-100 text-lg"></p>
           </div>
         </div>
 
         <!-- Features -->
-        <div class="px-4 mt-6">
+        <div id="featuresContainer" class="px-4 mt-6">
           <p class="text-blue-400 text-sm font-semibold tracking-wider mb-4">
             FEATURES
           </p>
-          <ul class="space-y-3 text-gray-300">
+          <!-- <ul class="space-y-3 text-gray-300">
             <li class="flex items-start gap-3 pl-2">
               <span class="text-blue-500 font-bold mt-1">✓</span>
               <span>Premium panoramic viewport</span>
@@ -468,7 +469,7 @@
               <span class="text-blue-500 font-bold mt-1">✓</span>
               <span>Gourmet space cuisine dining</span>
             </li>
-          </ul>
+          </ul> -->
         </div>
 
         <div class="section-divider h-px"></div>
@@ -497,8 +498,8 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="text-gray-300">
-                <tr class="border-b border-blue-500/20">
+              <tbody id="passengersTable" class="text-gray-300">
+                <!-- <tr class="border-b border-blue-500/20">
                   <td class="p-4">1</td>
                   <td class="p-4">John</td>
                   <td class="p-4">Doe</td>
@@ -511,7 +512,7 @@
                   <td class="p-4">Smith</td>
                   <td class="p-4">+1 555-0124</td>
                   <td class="p-4">jane.smith@email.com</td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>
@@ -526,7 +527,7 @@
           <p class="text-blue-400 text-sm font-semibold tracking-wider mb-3">
             TOTAL PRICE
           </p>
-          <p class="price-amount text-5xl font-bold">$125,000.00</p>
+          <p id="ticketPrice" class="price-amount text-5xl font-bold"></p>
           <p class="text-xs text-blue-300 mt-3">All taxes and fees included</p>
         </div>
         <!-- download button -->
@@ -563,5 +564,82 @@
         </div>
       </div>
     </div>
+        <!-- Footer -->
+    <footer id="footer" class="bg-space-dark border-t border-neon-blue/20 py-8 mt-12 relative z-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center">
+                            <i class="fas fa-rocket text-white text-sm"></i>
+                        </div>
+                        <span class="font-orbitron text-lg">SpaceVoyager</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">© 2023 SpaceVoyager. All rights reserved.</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-4 md:mb-0">
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors text-xl">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400 text-sm">Contact us: info@spacevoyager.com</p>
+                    <p class="text-gray-400 text-sm">+1 (800) SPACE-TRIP</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create stars background
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size between 1-3px
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        });
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+        });
+    </script>
+    <script src="/login.js"></script>
+    <script src="ticket.js"></script>
+
   </body>
 </html>
