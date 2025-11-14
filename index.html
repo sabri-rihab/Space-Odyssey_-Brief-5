@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpaceVoyager — Explore Beyond Earth</title>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -133,7 +133,7 @@
         }
         
         .mobile-menu.open {
-            max-height: 300px;
+            max-height: 400px;
         }
     </style>
 </head>
@@ -154,7 +154,7 @@
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link hover:text-neon-blue transition-colors">Home</a>
                 <a href="destinations.html" class="nav-link hover:text-neon-blue transition-colors">Destinations</a>
-                <a href="booking.html" class="nav-link hover:text-neon-blue transition-colors">Booking</a>
+                <a href="booking.html" class="booking nav-link hover:text-neon-blue transition-colors">Booking</a>
                 <a href="myBooking.html" class="nav-link hover:text-neon-blue transition-colors">My Booking</a>
                 <a href="about.html" class="nav-link hover:text-neon-blue transition-colors">About</a>
                 <a href="login.html" id="loginState" class="nav-link hover:text-neon-blue transition-colors">Login</a>
@@ -173,7 +173,8 @@
             <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
                 <a href="index.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Home</a>
                 <a href="destinations.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Destinations</a>
-                <a href="booking.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Booking</a>
+                <a href="booking.html" class="booking hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">Booking</a>
+                <a href="myBooking.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">My Booking</a>
                 <a href="about.html" class="hover:text-neon-blue transition-colors py-2 border-b border-neon-blue/20">About</a>
                 <a href="login.html" class="hover:text-neon-blue transition-colors py-2">Login</a>
             </div>
@@ -410,6 +411,7 @@
             createStars();
         });
     </script>
-    <script src="/login.js"></script>
+        <script src="/login.js"></script>
+
 </body>
 </html>

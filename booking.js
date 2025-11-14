@@ -6,32 +6,36 @@ async function loadingDestinations() {
     const respond = await fetch("accommodations.json"); // fetching accomodation data
     const accomodations_data = await respond.json();
 
-    const personal_info_container = document.querySelector("#personal_info_container"); //personal info container
-    const passengers_inputs = document.querySelectorAll("input[name='numPassengers']"); //passengers radio inputs
+    const personal_info_container = document.querySelector(
+      "#personal_info_container"
+    ); //personal info container
+    const passengers_inputs = document.querySelectorAll(
+      "input[name='numPassengers']"
+    ); //passengers radio inputs
     const add_passenger_btn = document.querySelector("#add_passenger"); //add passenger button
     const prix_container = document.querySelector("#prix");
 
     let myReservations = [];
     let passengers = [];
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     let res_id = 0;
-    
+
     /* CALLING VALIDATION INPUTS */
     const Destination_select = document.querySelector("#destination"); //destination select element
-    const submitionBtn = document.querySelector('#SubmitBtn');
-    const DateInput = document.querySelector('#departureDate');
+    const submitionBtn = document.querySelector("#SubmitBtn");
+    const DateInput = document.querySelector("#departureDate");
 
     /* CALLING SPAN ERRORS */
-    const errorDest = document.querySelector('#errorDest');
-    const errorDate = document.querySelector('#errorDate');
-    const errorAccomodation = document.querySelector('#errorAccomodation');
+    const errorDest = document.querySelector("#errorDest");
+    const errorDate = document.querySelector("#errorDate");
+    const errorAccomodation = document.querySelector("#errorAccomodation");
 
     /*--------- price varibales ---------- */
     let destinationPrice = 0;
     let travelDuration = 0;
     let PricePerDay = 0;
 
-    let passengers_count = 1; 
+    let passengers_count = 1;
     let prix_total = 0;
 
     /* --------------------------------------- HANDLE DESTINATION CHANGE -----------------------------------------------------*/
@@ -152,35 +156,40 @@ async function loadingDestinations() {
     const NameRegex = /^[A-Za-zÀ-ÿ\s']{2,50}$/;
     const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const PhoneRegex = /^[\+]?[0-9]{6,15}$/;
-    
 
-    function FormValidation(input, regex, errorMsg){
-    if(!regex.test(input.value)){
-        input.classList.remove('border-cyan-400');
-        input.classList.add('border-red-400');
+    function FormValidation(input, regex, errorMsg) {
+      if (!regex.test(input.value)) {
+        input.classList.remove("border-cyan-400");
+        input.classList.add("border-red-400");
         return false;
-    } else {
-        input.classList.remove('border-red-400');
-        input.classList.add('border-cyan-400');
+      } else {
+        input.classList.remove("border-red-400");
+        input.classList.add("border-cyan-400");
         return true;
+      }
     }
-}
 
-    function BookingValidation(){
+    function BookingValidation() {
       let isValid = true;
 
-      if (!Destination_select.value){
-        errorDest.textContent = "Please select a destination"
+      if (!Destination_select.value) {
+        errorDest.textContent = "Please select a destination";
         isValid = false;
-      }else {errorDest.textContent = "";}
+      } else {
+        errorDest.textContent = "";
+      }
 
-      const accInput = document.querySelector('input[name="accommodation"]:checked');
-      if (!accInput){
+      const accInput = document.querySelector(
+        'input[name="accommodation"]:checked'
+      );
+      if (!accInput) {
         errorAccomodation.textContent = "Please select an accommodation";
         isValid = false;
-      } else {errorAccomodation.textContent = "";}
+      } else {
+        errorAccomodation.textContent = "";
+      }
 
-      if(!DateInput.value){
+      if (!DateInput.value) {
         errorDate.textContent = "invalide date";
         isValid = false;
       } else {
@@ -189,34 +198,50 @@ async function loadingDestinations() {
         const minDate = new Date();
         minDate.setDate(today.getDate() + 30);
         if (selectedDate < minDate) {
-             errorDate.textContent = "Date must be at least 30 days from today.";
-             isValid = false;
-         } else {
-             errorDate.textContent = "";
-         }
+          errorDate.textContent = "Date must be at least 30 days from today.";
+          isValid = false;
+        } else {
+          errorDate.textContent = "";
+        }
       }
 
+      if(!currentUser || currentUser.login !== 'true'){
+        isValid = false;
+      }
 
       const firstNames = document.querySelectorAll('input[name="firstName"]');
       const lastNames = document.querySelectorAll('input[name="lastName"]');
       const emails = document.querySelectorAll('input[name="email"]');
       const phones = document.querySelectorAll('input[name="phone"]');
 
-      firstNames.forEach(input => { if(!FormValidation(input, NameRegex, "Invalid First Name")) isValid = false; });
-      lastNames.forEach(input => { if(!FormValidation(input, NameRegex, "Invalid Last Name")) isValid = false; });
-      emails.forEach(input => { if(!FormValidation(input, EmailRegex, "Invalid Email")) isValid = false; });
-      phones.forEach(input => { if(!FormValidation(input, PhoneRegex, "Invalid Phone Number")) isValid = false; });
+      firstNames.forEach((input) => {
+        if (!FormValidation(input, NameRegex, "Invalid First Name"))
+          isValid = false;
+      });
+      lastNames.forEach((input) => {
+        if (!FormValidation(input, NameRegex, "Invalid Last Name"))
+          isValid = false;
+      });
+      emails.forEach((input) => {
+        if (!FormValidation(input, EmailRegex, "Invalid Email"))
+          isValid = false;
+      });
+      phones.forEach((input) => {
+        if (!FormValidation(input, PhoneRegex, "Invalid Phone Number"))
+          isValid = false;
+      });
 
       return isValid;
     }
 
-    submitionBtn.addEventListener('click', () => {
-        if (BookingValidation()) {
-            alert("success");
-            res_id++;
-        } else {
-            alert("your reservation is not valid");
-        }
+    submitionBtn.addEventListener("click", () => {
+      if (BookingValidation()) {
+        alert("success");
+        AddReservation();
+        res_id++;
+      } else {
+        alert("your reservation is not valid");
+      }
     });
 
     /*-------------------------------------------------- Calculate the Total Price --------------------------------------------------- */
@@ -237,7 +262,7 @@ async function loadingDestinations() {
         const selectedOption = e.target.selectedOptions[0];
         let destinationID = selectedOption.value;
         travelDuration = parseInt(selectedOption.dataset.traveldays);
-        destinationPrice= parseFloat(selectedOption.dataset.price);
+        destinationPrice = parseFloat(selectedOption.dataset.price);
 
         console.log("destination's ID :", destinationID);
         console.log("destination's price :", destinationPrice);
@@ -246,26 +271,55 @@ async function loadingDestinations() {
       }
     });
 
-    function CalculateTotalPrice(){
-        prix_total = parseFloat(travelDuration * 2 * PricePerDay * passengers_count + destinationPrice);
-        prix_container.innerHTML = prix_total;
-        console.log(prix_total); 
+    function CalculateTotalPrice() {
+      prix_total = parseFloat(
+        travelDuration * 2 * PricePerDay * passengers_count + destinationPrice
+      );
+      prix_container.innerHTML = prix_total;
+      console.log(prix_total);
     }
 
+    function AddReservation() {
+      // Create passengers array
+      let passengersArr = [];
 
-    function AddReservation(){
+      for (let i = 1; i <= passengers_count; i++) {
+        const firstName = document.querySelector(`#firstName${i}`).value;
+        const lastName = document.querySelector(`#lastName${i}`).value;
+        const email = document.querySelector(`#email${i}`).value;
+        const phone = document.querySelector(`#phone${i}`).value;
+        const specialRequirements = document.querySelector(
+          `#specialRequirements${i}`
+        ).value;
 
-        reservation = {
-            userID : currentUser.id,
-            reservationID : `SV-${getDate.getFullYear()}-${res_id}`,
-            dastination : `${Destination_select.value}`,
-            accomodation : `accInput`,
-            date : ,
-            passengers : 
-        }
-        myReservations.add(reservation);
+        passengersArr.push({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+          specialRequirements: specialRequirements,
+        });
+      }
+
+      // Get selected accommodation ID
+      const accInput = document.querySelector('input[name="accommodation"]:checked');
+
+      // Create reservation object
+      const reservation = {
+        userID: currentUser.id,
+        reservationID: `SV-${new Date().getFullYear()}-${res_id}`,
+        destination: Destination_select.value,
+        accommodation: accInput ? accInput.id : null,
+        date: DateInput.value,
+        passengers: passengersArr,
+        totalPrice: prix_total,
+      };
+
+      // Add to array
+      myReservations.push(reservation);
+
+      console.log("Reservation added:", reservation);
     }
-
   } catch (error) {
     console.error("error loading data", error);
   }
