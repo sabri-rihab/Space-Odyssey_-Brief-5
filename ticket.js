@@ -48,7 +48,7 @@ async function reservationTicket() {
     ticketID.textContent = reservation.reservationID;
     ticketDate.textContent = new Date(reservation.date).toDateString();
     ticketDestination.textContent = destinationObj ? destinationObj.name : reservation.destination;
-    ticketTravelDays.textContent = destinationObj ? destinationObj.travelDays + " Days" : "";
+    ticketTravelDays.textContent = destinationObj ? destinationObj.travelDuration : "";
     ticketAccomodation.textContent = accommodationObj ? accommodationObj.name : "";
 
     /* ---- FILL ACTIVITIES LIST ---- */
