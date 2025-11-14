@@ -239,6 +239,7 @@ async function loadingDestinations() {
         alert("success");
         AddReservation();
         res_id++;
+
       } else {
         alert("your reservation is not valid");
       }
@@ -278,6 +279,8 @@ async function loadingDestinations() {
       prix_container.innerHTML = prix_total;
       console.log(prix_total);
     }
+
+    /*--------------------------------------------  ADD RESERVATION  ---------------------------------------------- */
 
     function AddReservation() {
       // Create passengers array

@@ -8,7 +8,7 @@ async function CheckLogIn() {
     const loginBtn = document.querySelector("#loginBtn");
     const welcome = document.querySelector(".welcome");
     const state = document.getElementById("loginState");
-    const booking = document.querySelector("#booking");
+    const booking = document.querySelector(".booking");
 
     // Check current user on page load
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
